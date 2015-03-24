@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TrueNorth.Crm.FieldHasher
 {   
-    public class Hashor
+    public static class Hashor
     {
         public const int SALT_BYTE_SIZE = 24;
         public const int HASH_BYTE_SIZE = 20; // to match the size of the PBKDF2-HMAC-SHA-1 hash
