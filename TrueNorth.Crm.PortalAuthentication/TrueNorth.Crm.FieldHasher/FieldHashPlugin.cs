@@ -24,13 +24,26 @@ namespace TrueNorth.Crm.FieldHasher
         private string passwordField;
         private string dontHashField;
         
-        public FieldHashPlugin(string unsecureconfig, string securconfig)
+        public FieldHashPlugin(string unsecureConfig, string secureConfig)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(unsecureconfig);
 
-            string passwordField = PluginConfiguration.GetConfigDataString(doc, "PasswordField");
-            string dontHashField = PluginConfiguration.GetConfigDataString(doc, "DontHashField");
+            string passwordField = null;
+            string dontHashField = null;
+
+            if (!String.IsNullOrEmpty(unsecureConfig))
+            {
+                try
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(unsecureConfig);
+                    passwordField = PluginConfiguration.GetConfigDataString(doc, "PasswordField");
+                    dontHashField = PluginConfiguration.GetConfigDataString(doc, "DontHashField");
+                }
+                catch (XmlException exc)
+                {
+                    throw new InvalidPluginExecutionException("Unsecure config was present but not in the expected format.");
+                }
+            }
 
             this.passwordField = String.IsNullOrEmpty(passwordField) ? "tn_password" : passwordField;
             this.dontHashField = String.IsNullOrEmpty(dontHashField) ? "tn_donthash" : dontHashField;
