@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="FieldHashPlugin.cs" />
     <Compile Include="Hashor.cs" />
+    <Compile Include="PluginConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
